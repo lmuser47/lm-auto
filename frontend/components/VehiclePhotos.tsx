@@ -1,0 +1,10 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { api, type VehicleImage } from '../lib/api';
+export default function VehiclePhotos({vehicleId,onChange}:{vehicleId:number;onChange:()=>void}) {
+ const [images,setImages]=useState<VehicleImage[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState('');
+ useEffect(()=>{let active=true;api<VehicleImage[]>(`/vehicles/${vehicleId}/images`).then(v=>{if(active)setImages(v);}).catch(e=>{if(active)setError(e.message);});return()=>{active=false;};},[vehicleId]);
+ async function upload(files:FileList|null){if(!files||busy)return;setBusy(true);setError('');try{for(const file of Array.from(files)){if(file.size>10*1024*1024)throw new Error(`${file.name} is larger than 10 MB.`);const body=new FormData();body.append('file',file);const image=await api<VehicleImage>(`/vehicles/${vehicleId}/images`,{method:'POST',body});setImages(v=>[...v,image]);onChange();}}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
+ async function remove(image:VehicleImage){if(busy||!confirm('Delete this photo permanently?'))return;setBusy(true);setError('');try{await api(`/vehicles/${vehicleId}/images/${image.id}`,{method:'DELETE'});setImages(v=>v.filter(x=>x.id!==image.id));onChange();}catch(e){setError((e as Error).message);}finally{setBusy(false);}}
+ return <section className="photo-manager"><h3>Vehicle photos</h3><p>JPEG, PNG or WebP · Up to 10 MB each. First photo is the cover.</p><label>Upload photos<input type="file" accept="image/jpeg,image/png,image/webp" multiple disabled={busy} onChange={e=>{void upload(e.target.files);e.target.value='';}}/></label>{busy&&<p role="status">Updating photos…</p>}<p role="alert">{error}</p><div className="photo-thumbnails">{images.map((image,index)=><div key={image.id}><img src={image.url} alt={`Vehicle photo ${index+1}`} loading="lazy"/>{index===0&&<span>Cover</span>}<button type="button" className="delete" disabled={busy} onClick={()=>remove(image)}>Remove</button></div>)}</div></section>;
+}
