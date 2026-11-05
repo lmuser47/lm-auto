@@ -55,3 +55,6 @@
 .lm-contact .lm-contact-placeholder{grid-column:1/-1;font-size:11px;margin:0;color:#a4af9b}
 @media(max-width:850px){.lm-contact{grid-template-columns:1fr;gap:24px}}
 @media(max-width:650px){.lm-header nav{gap:16px}.lm-nav-current span{margin-left:8px}.lm-contact{padding:32px 0 40px}.lm-contact-details{grid-template-columns:1fr}.lm-contact h2{letter-spacing:-1px}}
+
+/* Match the mobile overscroll canvas to the public storefront. */
+html:has(.lm-site),body:has(.lm-site){background:#111412;color-scheme:dark}
