@@ -39,3 +39,19 @@
 .lm-site .vehicle-gallery{background:transparent}
 
 .demo-banner{padding:12px 0;color:#c5dba2;font-size:10px;letter-spacing:.5px;border-bottom:1px solid #35432c;margin-top:12px}.demo-credit{font-size:11px;color:#98a296;margin-bottom:30px}
+
+/* Dealership contact information. */
+.lm-header nav{display:flex;align-items:center;gap:28px}
+.lm-contact{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:48px 0 56px;border-top:1px solid #30392e;scroll-margin-top:24px}
+.lm-contact h2{font-size:clamp(30px,4vw,46px);font-weight:500;letter-spacing:-1.5px;margin:18px 0}
+.lm-contact h2>span,.lm-contact-phone>span{color:var(--lime)}
+.lm-contact p{color:#a4af9b;font-size:13px;line-height:1.7}
+.lm-contact .lm-kicker{font-size:10px;color:#bdc7b7}
+.lm-contact-details{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-content:center}
+.lm-contact h3{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#a4af9b;margin:0 0 14px}
+.lm-contact-phone{display:inline-block;font-size:20px;white-space:nowrap}
+.lm-contact-phone:hover{color:var(--lime)}
+.lm-contact address{font-style:normal;font-size:14px;line-height:1.8}
+.lm-contact .lm-contact-placeholder{grid-column:1/-1;font-size:11px;margin:0;color:#a4af9b}
+@media(max-width:850px){.lm-contact{grid-template-columns:1fr;gap:24px}}
+@media(max-width:650px){.lm-header nav{gap:16px}.lm-nav-current span{margin-left:8px}.lm-contact{padding:32px 0 40px}.lm-contact-details{grid-template-columns:1fr}.lm-contact h2{letter-spacing:-1px}}
